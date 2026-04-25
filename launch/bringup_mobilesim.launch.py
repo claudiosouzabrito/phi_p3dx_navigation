@@ -45,7 +45,7 @@ def generate_launch_description():
         description='pioneer3dx')
 
     use_rviz_arg = DeclareLaunchArgument(
-        'use_rviz', default_value='true',
+        'use_rviz', default_value='false',
         description='')
 
     port      = LaunchConfiguration('port')
@@ -104,6 +104,34 @@ def generate_launch_description():
             ),
         ],
     )
+
+    wall_following = TimerAction(
+        period=5.0,
+        actions=[
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    join(pkg_navigation, 'launch', 'includes', 'bringup_wall_following.launch.py')
+                ),
+                launch_arguments={
+                    'robot_namespace': namespace
+                }.items()
+            ),
+        ],
+    )
+
+    VFH = TimerAction(
+        period=5.0,
+        actions=[
+            IncludeLaunchDescription(
+                PythonLaunchDescriptionSource(
+                    join(pkg_navigation, 'launch', 'includes', 'VFH.launch.py')
+                ),
+                launch_arguments={
+                    'robot_namespace': namespace
+                }.items()
+            ),
+        ],
+    )
     
 
     rviz_launch = TimerAction(
@@ -131,6 +159,8 @@ def generate_launch_description():
         state_publishers,
         mobilesim,
         phi_aria_node,
-        rviz_launch,
-        # navigation,
+        rviz_launch
+        #navigation,
+        ,wall_following
+        # ,VFH
     ])

@@ -118,9 +118,9 @@ void NavigationNode::goal_callback(const geometry_msgs::msg::PoseStamped::Shared
 
   has_goal_ = true;
 
-  RCLCPP_INFO(this->get_logger(),
-    "Novo goal → x=%.2f y=%.2f θ=%.1f°",
-    std::get<0>(goal_), std::get<1>(goal_), goal_theta_ * 180.0 / M_PI);
+  // RCLCPP_INFO(this->get_logger(),
+  //   "Novo goal → x=%.2f y=%.2f θ=%.1f°",
+  //   std::get<0>(goal_), std::get<1>(goal_), goal_theta_ * 180.0 / M_PI);
 
   on_goal();
 }
@@ -137,7 +137,7 @@ bool NavigationNode::has_laser_data() const
 
 bool NavigationNode::has_sonar_data() const
 {
-  return !sonar_ranges_.empty();
+  return true;
 }
 
 double NavigationNode::get_region_distance(size_t idx_start, size_t idx_end) const

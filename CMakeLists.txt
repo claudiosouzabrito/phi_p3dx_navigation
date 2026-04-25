@@ -17,10 +17,6 @@ find_package(nav_msgs REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 
-find_package(ros_gz_sim REQUIRED)
-find_package(ros_gz_bridge REQUIRED)
-
-
 include_directories(include)
 
 # ---------- C++ executable node ----------
@@ -39,7 +35,37 @@ install(TARGETS control_example_cpp
   DESTINATION lib/${PROJECT_NAME}
 )
 
-install(DIRECTORY launch config scripts
+add_executable(wall_following src/wall_following_PID.cpp src/navigation_node.cpp)
+ament_target_dependencies(wall_following
+  rclcpp
+  std_msgs
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  tf2
+  tf2_geometry_msgs
+)
+
+install(TARGETS wall_following
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+add_executable(VFH src/VFH.cpp src/navigation_node.cpp)
+ament_target_dependencies(VFH
+  rclcpp
+  std_msgs
+  geometry_msgs
+  sensor_msgs
+  nav_msgs
+  tf2
+  tf2_geometry_msgs
+)
+
+install(TARGETS VFH
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+install(DIRECTORY launch scripts
         DESTINATION share/${PROJECT_NAME})
 
 # ---------- Python Node script ----------
