@@ -45,7 +45,7 @@ def generate_launch_description():
         description='pioneer3dx')
 
     use_rviz_arg = DeclareLaunchArgument(
-        'use_rviz', default_value='false',
+        'use_rviz', default_value='true',
         description='')
 
     port      = LaunchConfiguration('port')
@@ -161,6 +161,6 @@ def generate_launch_description():
         phi_aria_node,
         rviz_launch
         #navigation,
-        ,wall_following
-        # ,VFH
+        # ,wall_following
+        ,VFH
     ])
